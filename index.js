@@ -45,11 +45,12 @@ module.exports = function (app, options) {
       if (err) {
         debug('Error sending email with id: %d', job.id)
         debug(err)
+        done(err)
       } else {
         mailer.emit('success', job)
         debug('Email with id "%d" was successfully sent.', job.id)
+        done()
       }
-      done()
     })
   })
 
