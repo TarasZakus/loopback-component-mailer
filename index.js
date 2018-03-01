@@ -43,11 +43,8 @@ module.exports = function (app, options) {
     debug('Email from queue is about to be processed')
     sendMail(job.data, function (err, json) {
       if (err) {
-        var error = new Error('Error sending mail')
-        error.job = job
-        error.transportError = err
-        mailer.emit('error', error)
         debug('Error sending email with id: %d', job.id)
+        debug(err)
       } else {
         mailer.emit('success', job)
         debug('Email with id "%d" was successfully sent.', job.id)
